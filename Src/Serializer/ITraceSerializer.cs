@@ -2,7 +2,8 @@ using SPP_1.Tracer;
 
 namespace SPP_1.Serializer;
 
-internal interface ISerializer
+public abstract class ITraceSerializer
 {
-     string Serialize(TraceResult result);
+     public abstract SerializerType type { get; }
+     public abstract string Serialize(TraceResult result);
 }

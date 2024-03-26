@@ -1,4 +1,5 @@
-﻿using SPP_1.Serializer;
+﻿using SPP_1.Logger;
+using SPP_1.Serializer;
 using SPP_1.Test;
 using SPP_1.Test.Tests;
 using SPP_1.Tracer;
@@ -14,7 +15,7 @@ internal class Program
             new Test2(tracer),
             new Test3(tracer)
         };
-
+        
         Task[] tasks = new Task[3];
         
         for (int i = 0; i <= 2; i++)
@@ -30,15 +31,23 @@ internal class Program
         
         var result = tracer.GetTraceResult();
 
-        ISerializer[] serializers = {
-            new XmlTraceSerializer(),
-            new JsonTraceSerializer()
+        ITraceSerializer[] serializers = {
+            new XmlTraceTraceSerializer(),
+            new JsonTraceTraceSerializer()
+        };
+
+        ILogger[] loggers =
+        {
+            new FileLogger(),
+            new ConsoleLogger()
         };
         
         foreach (var serializer in serializers)
         {
-            Console.WriteLine(serializer.Serialize(result));
-            Console.WriteLine();
+            foreach (var logger in loggers)
+            {
+                logger.Log(serializer.Serialize(result), serializer.type);
+            }
         }
     }
 }
