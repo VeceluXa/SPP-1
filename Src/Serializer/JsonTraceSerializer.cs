@@ -12,7 +12,7 @@ public class JsonTraceSerializer : ISerializer
     };
     public string Serialize(TraceResult result)
     {
-        TraceResultBaseDTO dto = new TraceResultBaseDTO(result);
+        TraceResultDto dto = new TraceResultDto(result);
         return JsonSerializer.Serialize(dto, options);
     }
 }
